@@ -64,6 +64,18 @@ function checkCollisionDetection(xCoord, yCoord){
   })
 }
 
+function checkWin(){
+  if (playerX > canvas.width - 20 && playerY > canvas.height - 20){
+    alert("Congratulations, you escaped!");
+    resetPlayer();
+  };
+}
+
+function resetPlayer(){
+  playerX = 15;
+  playerY = 15;
+}
+
 
 // RENDERING
 
@@ -93,6 +105,7 @@ function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPlayer();
   drawWalls();
+  checkWin();
   requestAnimationFrame(draw);
 }
 
