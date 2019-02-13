@@ -4,8 +4,8 @@ const ctx = canvas.getContext("2d");
 // INITIALISATION
 
 // Player coordinates
-let playerX = canvas.width/2;
-let playerY = canvas.height/2;
+let playerX = 20;
+let playerY = 20;
 
 
 // INPUT HANDLING
