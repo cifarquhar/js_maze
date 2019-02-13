@@ -10,14 +10,16 @@ let playerY = 15;
 // Walls
 const wallPoints = [
   {
-    xCoord: 50,
-    yCoord: 50,
-    direction: "H"
+    xStart: 50,
+    yStart: 50,
+    xEnd:100,
+    yEnd: 50
   },
   {
-    xCoord: 100,
-    yCoord: 100,
-    direction: "V"
+    xStart: 100,
+    yStart: 100,
+    xEnd: 100,
+    yEnd: 200
   }
 ]
 
@@ -61,15 +63,11 @@ function drawPlayer(){
 function drawWalls(){
   wallPoints.forEach((wall) => {
     ctx.beginPath();
-    ctx.moveTo(wall.xCoord, wall.yCoord);
-    if (wall.direction === "H"){
-      ctx.lineTo(wall.xCoord + 20, wall.yCoord);
-    }
-    else if (wall.direction === "V"){
-      ctx.lineTo(wall.xCoord, wall.yCoord + 20);
-    }
+    ctx.moveTo(wall.xStart, wall.yStart);
+    ctx.lineTo(wall.xEnd, wall.yEnd);
     ctx.strokeStyle = "#2D0E00";
     ctx.stroke();
+    ctx.closePath();
   });
 }
 
