@@ -4,8 +4,8 @@ const ctx = canvas.getContext("2d");
 // INITIALISATION
 
 // Player coordinates
-let playerX = 20;
-let playerY = 20;
+let playerX = 15;
+let playerY = 15;
 
 // Walls
 const wallPoints = [
