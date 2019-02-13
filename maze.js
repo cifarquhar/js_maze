@@ -13,19 +13,19 @@ let playerY = 20;
 function updatePlayerPosition(event){
   const keyPressed = event.keyCode;
   
-  if (keyPressed === 37){     // Left
+  if (keyPressed === 37 && playerX > 10){     // Left
     playerX -= 10;
   }
 
-  if (keyPressed === 38){     // Up
+  if (keyPressed === 38 && playerY > 10){     // Up
     playerY -= 10;
   }
 
-  if (keyPressed === 39){     // Right
+  if (keyPressed === 39 && playerX < canvas.width - 10){     // Right
     playerX += 10;
   }
 
-  if (keyPressed === 40){     // Down
+  if (keyPressed === 40 && playerY < canvas.height - 10){     // Down
     playerY += 10;
   }
 
