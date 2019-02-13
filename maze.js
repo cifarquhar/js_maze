@@ -13,12 +13,12 @@ const wallPoints = [
     xStart: 50,
     yStart: 50,
     xEnd:100,
-    yEnd: 50
+    yEnd: 55
   },
   {
     xStart: 100,
     yStart: 100,
-    xEnd: 100,
+    xEnd: 105,
     yEnd: 200
   }
 ]
@@ -30,21 +30,38 @@ function updatePlayerPosition(event){
   const keyPressed = event.keyCode;
   
   if (keyPressed === 37 && playerX > 10){     // Left
-    playerX -= 10;
+    const tempX = playerX - 10;
+    if (checkCollisionDetection(tempX, playerY)){
+      playerX = tempX;
+    }
   }
 
   if (keyPressed === 38 && playerY > 10){     // Up
-    playerY -= 10;
+    const tempY = playerY - 10;
+    if (checkCollisionDetection(playerX, tempY)) {
+      playerY = tempY;
+    }
   }
 
   if (keyPressed === 39 && playerX < canvas.width - 10){     // Right
-    playerX += 10;
+    const tempX = playerX + 10;
+    if (checkCollisionDetection(tempX, playerY)) {
+      playerX = tempX;
+    }
   }
 
   if (keyPressed === 40 && playerY < canvas.height - 10){     // Down
-    playerY += 10;
+    const tempY = playerY + 10;
+    if (checkCollisionDetection(playerX, tempY)) {
+      playerY = tempY;
+    }
   }
+}
 
+function checkCollisionDetection(xCoord, yCoord){
+  return wallPoints.every((wall) => {
+    return (xCoord < wall.xStart || xCoord > wall.xEnd) || (yCoord < wall.yStart || yCoord > wall.yEnd)
+  })
 }
 
 
@@ -63,10 +80,10 @@ function drawPlayer(){
 function drawWalls(){
   wallPoints.forEach((wall) => {
     ctx.beginPath();
-    ctx.moveTo(wall.xStart, wall.yStart);
-    ctx.lineTo(wall.xEnd, wall.yEnd);
     ctx.strokeStyle = "#2D0E00";
-    ctx.stroke();
+    ctx.fillStyle = "#2D0E00";
+    ctx.fillRect(wall.xStart, wall.yStart, wall.xEnd - wall.xStart, wall.yEnd - wall.yStart);
+    ctx.strokeRect(wall.xStart, wall.yStart, wall.xEnd - wall.xStart, wall.yEnd - wall.yStart);
     ctx.closePath();
   });
 }
