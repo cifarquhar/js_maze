@@ -98,10 +98,8 @@ function drawPlayer(){
 function drawWalls(){
   wallPoints.forEach((wall) => {
     ctx.beginPath();
-    ctx.strokeStyle = "#2D0E00";
     ctx.fillStyle = "#2D0E00";
     ctx.fillRect(wall.xStart, wall.yStart, wall.xEnd - wall.xStart, wall.yEnd - wall.yStart);
-    ctx.strokeRect(wall.xStart, wall.yStart, wall.xEnd - wall.xStart, wall.yEnd - wall.yStart);
     ctx.closePath();
   });
 }
