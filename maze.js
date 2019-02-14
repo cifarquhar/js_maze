@@ -20,6 +20,12 @@ const wallPoints = [
     yStart: 100,
     xEnd: 105,
     yEnd: 200
+  },
+  {
+    xStart: 100,
+    yStart: 200,
+    xEnd: 200,
+    yEnd: 205
   }
 ]
 
