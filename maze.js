@@ -3,12 +3,16 @@ const ctx = canvas.getContext("2d");
 
 // INITIALISATION
 
+// Game state
+let completed = false;
+let currentLevel = 1;
+
 // Player coordinates
 let playerX = 15;
 let playerY = 15;
 
 // Walls
-const wallPoints = [
+const wallPointsLevel1 = [
   {
     xStart: 50,
     yStart: 50,
@@ -27,7 +31,30 @@ const wallPoints = [
     xEnd: 200,
     yEnd: 205
   }
-]
+];
+
+const wallPointsLevel2 = [
+  {
+    xStart: 75,
+    yStart: 200,
+    xEnd: 80,
+    yEnd: 250
+  },
+  {
+    xStart: 250,
+    yStart: 40,
+    xEnd: 350,
+    yEnd: 45
+  },
+  {
+    xStart: 300,
+    yStart: 300,
+    xEnd: 350,
+    yEnd: 305
+  }
+];
+
+const walls = [wallPointsLevel1, wallPointsLevel2];
 
 
 // INPUT HANDLING
@@ -65,14 +92,20 @@ function updatePlayerPosition(event){
 }
 
 function checkCollisionDetection(xCoord, yCoord){
-  return wallPoints.every((wall) => {
+  return walls[currentLevel - 1].every((wall) => {
     return (xCoord < wall.xStart || xCoord > wall.xEnd) || (yCoord < wall.yStart || yCoord > wall.yEnd)
   })
 }
 
 function checkWin(){
   if (playerX > canvas.width - 20 && playerY > canvas.height - 20){
-    alert("Congratulations, you escaped!");
+    if (currentLevel === walls.length){
+      alert("Congratulations, you escaped!");
+      completed = true;
+    }
+    else{
+      alert("You made it, now on to the next level!");
+    }
     resetPlayer();
   };
 }
@@ -80,6 +113,7 @@ function checkWin(){
 function resetPlayer(){
   playerX = 15;
   playerY = 15;
+  currentLevel += 1;
 }
 
 
@@ -96,7 +130,7 @@ function drawPlayer(){
 
 // Walls
 function drawWalls(){
-  wallPoints.forEach((wall) => {
+  walls[currentLevel - 1].forEach((wall) => {
     ctx.beginPath();
     ctx.fillStyle = "#2D0E00";
     ctx.fillRect(wall.xStart, wall.yStart, wall.xEnd - wall.xStart, wall.yEnd - wall.yStart);
@@ -108,9 +142,11 @@ function drawWalls(){
 function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPlayer();
-  drawWalls();
-  checkWin();
-  requestAnimationFrame(draw);
+  if (!completed){
+    drawWalls();
+    checkWin();
+    requestAnimationFrame(draw);
+  }
 }
 
 
