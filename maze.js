@@ -1,11 +1,15 @@
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
+const timerDisplay = document.querySelector("#timer");
 
 // INITIALISATION
 
 // Game state
 let completed = false;
 let currentLevel = 1;
+let currentTime = Date.now();
+let timeRemaining = 1000;
+let currentScore = 0;
 
 // Player coordinates
 let playerX = 15;
@@ -116,6 +120,13 @@ function resetPlayer(){
 }
 
 
+// TIMER
+
+function updateTimer(){
+  timerDisplay.innerText = timeRemaining;
+}
+
+
 // RENDERING
 
 // Player
@@ -144,6 +155,7 @@ function draw(){
   if (!completed){
     drawWalls();
     checkWin();
+    updateTimer();
     requestAnimationFrame(draw);
   }
 }
