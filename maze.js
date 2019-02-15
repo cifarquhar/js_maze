@@ -15,7 +15,6 @@ let playerX = 15;
 let playerY = 15;
 
 // Walls
-
 const walls = [
   [
     {
@@ -99,6 +98,9 @@ function checkCollisionDetection(xCoord, yCoord){
   })
 }
 
+
+// GAME STATE CHANGES
+
 function checkWin(){
   if (playerX > canvas.width - 20 && playerY > canvas.height - 20){
     if (currentLevel === walls.length){
@@ -118,9 +120,6 @@ function resetPlayer(){
   currentLevel += 1;
   timeRemaining = 10000;
 }
-
-
-// TIMER
 
 function updateTimer(){
   timeRemaining -= 1;
