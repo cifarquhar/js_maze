@@ -7,8 +7,7 @@ const timerDisplay = document.querySelector("#timer");
 // Game state
 let completed = false;
 let currentLevel = 1;
-let currentTime = Date.now();
-let timeRemaining = 1000;
+let timeRemaining = 10000;
 let currentScore = 0;
 
 // Player coordinates
@@ -123,6 +122,7 @@ function resetPlayer(){
 // TIMER
 
 function updateTimer(){
+  timeRemaining -= 1;
   timerDisplay.innerText = timeRemaining;
 }
 
