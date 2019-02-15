@@ -175,7 +175,7 @@ function updateTimer(){
 function drawPlayer(){
   ctx.beginPath();
   ctx.arc(playerX, playerY, 5, 0, Math.PI * 2, false);
-  ctx.fillStyle = "#114C84";
+  ctx.fillStyle = "#dd0000";
   ctx.fill();
   ctx.closePath();
 }
