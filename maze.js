@@ -116,6 +116,7 @@ function resetPlayer(){
   playerX = 15;
   playerY = 15;
   currentLevel += 1;
+  timeRemaining = 10000;
 }
 
 
@@ -156,6 +157,10 @@ function draw(){
     drawWalls();
     checkWin();
     updateTimer();
+    if (timeRemaining <= 0){
+      alert("Out of time, you're trapped forever!");
+      completed = true;
+    }
     requestAnimationFrame(draw);
   }
 }
