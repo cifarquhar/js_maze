@@ -104,10 +104,12 @@ function checkCollisionDetection(xCoord, yCoord){
 function checkWin(){
   if (playerX > canvas.width - 20 && playerY > canvas.height - 20){
     if (currentLevel === walls.length){
-      alert("Congratulations, you escaped!");
+      currentScore += timeRemaining;
+      alert(`Congratulations, you escaped with a score of ${currentScore}!`);
       completed = true;
     }
     else{
+      currentScore += timeRemaining;
       alert("You made it, now on to the next level!");
     }
     resetPlayer();
@@ -157,7 +159,7 @@ function draw(){
     checkWin();
     updateTimer();
     if (timeRemaining <= 0){
-      alert("Out of time, you're trapped forever!");
+      alert(`Out of time, you're trapped forever! \n You scored ${currentScore}`);
       completed = true;
     }
     requestAnimationFrame(draw);
