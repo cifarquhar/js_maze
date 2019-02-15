@@ -12,9 +12,36 @@ let currentScore = 0;
 
 // Player coordinates
 let playerX = 15;
-let playerY = 15;
+let playerY = 5;
 
 // Walls
+const outerWalls = [
+  {
+    xStart: 0,
+    yStart: 0,
+    xEnd: 10,
+    yEnd: canvas.height
+  },
+  {
+    xStart: 0,
+    yStart: canvas.height - 10,
+    xEnd: canvas.width - 20,
+    yEnd: canvas.height
+  },
+  {
+    xStart: 20,
+    yStart: 0,
+    xEnd: canvas.width,
+    yEnd: 10
+  },
+  {
+    xStart: canvas.width - 10,
+    yStart: 0,
+    xEnd: canvas.width,
+    yEnd: canvas.height
+  }
+]
+
 const walls = [
   [
     {
@@ -58,6 +85,19 @@ const walls = [
   ]
 ];
 
+let wallsToRender = walls[currentLevel - 1].concat(outerWalls); 
+
+function generateMaze(){
+  // split grid at random point
+  // place random gap
+  // for each split
+  //   check if grid can be split again
+  //   repeat process
+}
+
+
+
+
 // INPUT HANDLING
 
 function updatePlayerPosition(event){
@@ -93,7 +133,7 @@ function updatePlayerPosition(event){
 }
 
 function checkCollisionDetection(xCoord, yCoord){
-  return walls[currentLevel - 1].every((wall) => {
+  return wallsToRender.every((wall) => {
     return (xCoord < wall.xStart || xCoord > wall.xEnd) || (yCoord < wall.yStart || yCoord > wall.yEnd)
   })
 }
@@ -102,7 +142,7 @@ function checkCollisionDetection(xCoord, yCoord){
 // GAME STATE CHANGES
 
 function checkWin(){
-  if (playerX > canvas.width - 20 && playerY > canvas.height - 20){
+  if (playerX === canvas.width - 15 && playerY === canvas.height - 5){
     if (currentLevel === walls.length){
       currentScore += timeRemaining;
       alert(`Congratulations, you escaped with a score of ${currentScore}!`);
@@ -142,7 +182,7 @@ function drawPlayer(){
 
 // Walls
 function drawWalls(){
-  walls[currentLevel - 1].forEach((wall) => {
+  wallsToRender.forEach((wall) => {
     ctx.beginPath();
     ctx.fillStyle = "#2D0E00";
     ctx.fillRect(wall.xStart, wall.yStart, wall.xEnd - wall.xStart, wall.yEnd - wall.yStart);
