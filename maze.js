@@ -48,24 +48,24 @@ const walls = [
       xStart: 50,
       yStart: 50,
       xEnd: 100,
-      yEnd: 55
+      yEnd: 60
     },
     {
       xStart: 100,
       yStart: 100,
-      xEnd: 105,
+      xEnd: 110,
       yEnd: 200
     },
     {
       xStart: 100,
       yStart: 200,
       xEnd: 200,
-      yEnd: 205
+      yEnd: 210
     }
   ],
   [
     {
-      xStart: 75,
+      xStart: 70,
       yStart: 200,
       xEnd: 80,
       yEnd: 250
@@ -74,13 +74,13 @@ const walls = [
       xStart: 250,
       yStart: 40,
       xEnd: 350,
-      yEnd: 45
+      yEnd: 50
     },
     {
       xStart: 300,
       yStart: 300,
       xEnd: 350,
-      yEnd: 305
+      yEnd: 310
     }
   ]
 ];
