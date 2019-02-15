@@ -12,50 +12,49 @@ let playerX = 15;
 let playerY = 15;
 
 // Walls
-const wallPointsLevel1 = [
-  {
-    xStart: 50,
-    yStart: 50,
-    xEnd:100,
-    yEnd: 55
-  },
-  {
-    xStart: 100,
-    yStart: 100,
-    xEnd: 105,
-    yEnd: 200
-  },
-  {
-    xStart: 100,
-    yStart: 200,
-    xEnd: 200,
-    yEnd: 205
-  }
+
+const walls = [
+  [
+    {
+      xStart: 50,
+      yStart: 50,
+      xEnd: 100,
+      yEnd: 55
+    },
+    {
+      xStart: 100,
+      yStart: 100,
+      xEnd: 105,
+      yEnd: 200
+    },
+    {
+      xStart: 100,
+      yStart: 200,
+      xEnd: 200,
+      yEnd: 205
+    }
+  ],
+  [
+    {
+      xStart: 75,
+      yStart: 200,
+      xEnd: 80,
+      yEnd: 250
+    },
+    {
+      xStart: 250,
+      yStart: 40,
+      xEnd: 350,
+      yEnd: 45
+    },
+    {
+      xStart: 300,
+      yStart: 300,
+      xEnd: 350,
+      yEnd: 305
+    }
+  ]
 ];
-
-const wallPointsLevel2 = [
-  {
-    xStart: 75,
-    yStart: 200,
-    xEnd: 80,
-    yEnd: 250
-  },
-  {
-    xStart: 250,
-    yStart: 40,
-    xEnd: 350,
-    yEnd: 45
-  },
-  {
-    xStart: 300,
-    yStart: 300,
-    xEnd: 350,
-    yEnd: 305
-  }
-];
-
-const walls = [wallPointsLevel1, wallPointsLevel2];
-
 
 // INPUT HANDLING
 
