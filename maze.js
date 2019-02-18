@@ -88,27 +88,68 @@ const outerWalls = [
 let wallsToRender = outerWalls; 
 
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return (Math.floor(Math.random() * (max - min + 1)) + min) * 10;
 }
 
-function generateMaze(){
+function generateMaze(minX, maxX, minY, maxY, direction){
   // place random gap
-  const gapStart = getRandomInt(1, 46) * 10
-  console.log("gap start", gapStart);
+let gapStart;
 
-  wallsToRender.push({
-    xStart: 240,
-    yStart: 0,
-    xEnd: 250,
-    yEnd: gapStart
-  })   
+  if (direction === "H"){
 
-  wallsToRender.push({
-    xStart: 240,
-    yStart: gapStart + 10,
-    xEnd: 250,
-    yEnd: canvas.height
-  })   
+    gapStart = getRandomInt(minX /10, (maxX - 10) / 10);
+
+    const yCoord = getRandomInt((minY + 10) / 10, (maxY - 10) /10)
+
+    wallsToRender.push({
+      xStart: minX,
+      yStart: yCoord,
+      xEnd: gapStart,
+      yEnd: yCoord + 10
+    })
+
+    wallsToRender.push({
+      xStart: gapStart + 10,
+      yStart: yCoord,
+      xEnd: maxX,
+      yEnd: yCoord + 10
+    })   
+
+    if (yCoord - minY > 10 && maxX - minX > 10){
+      generateMaze(minX, maxX, minY, yCoord, "V")
+    }
+    if (maxY - yCoord > 10 && maxX - minX > 10){
+      generateMaze(minX, maxX, yCoord + 10, maxY, "V")
+    }
+  }
+  else if (direction === "V"){
+    gapStart = getRandomInt(minY / 10, (maxY - 10) / 10);
+
+    const xCoord = getRandomInt((minX + 10) / 10, (maxX - 10) / 10)
+
+    wallsToRender.push({
+      xStart: xCoord,
+      yStart: minY,
+      xEnd: xCoord + 10,
+      yEnd: gapStart
+    })
+
+    wallsToRender.push({
+      xStart: xCoord,
+      yStart: gapStart + 10,
+      xEnd: xCoord + 10,
+      yEnd: maxY
+    })   
+
+    if (xCoord - minX > 10 && maxY - minY > 10) {
+      generateMaze(minX, xCoord, minY, maxY, "H")
+    }
+    if (maxX - xCoord > 10 && maxY - minY > 10) {
+      generateMaze(xCoord + 10, maxX, minY, maxY, "H")
+    }
+
+  }
+
 
   // for each split
   //   check if grid can be split again
@@ -231,5 +272,5 @@ function draw(){
 // RUN GAME
 
 document.addEventListener("keydown", updatePlayerPosition)
-generateMaze();
+generateMaze(10, 470, 10, 470, "H");
 draw();
