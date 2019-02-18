@@ -93,31 +93,23 @@ function getRandomInt(min, max) {
 
 function generateMaze(){
   // place random gap
-  const gapStart = getRandomInt(1, 47) * 10
+  const gapStart = getRandomInt(1, 46) * 10
   console.log("gap start", gapStart);
 
-  let wallElements = []
+  wallsToRender.push({
+    xStart: 240,
+    yStart: 0,
+    xEnd: 250,
+    yEnd: gapStart
+  })   
 
-  for (let i = 0; i < gapStart; i += 10) {
-    wallElements.push({
-      xStart: 240,
-      yStart: i,
-      xEnd: 250,
-      yEnd: i + 10
-    })   
-  }
+  wallsToRender.push({
+    xStart: 240,
+    yStart: gapStart + 10,
+    xEnd: 250,
+    yEnd: canvas.height
+  })   
 
-  for (let i = gapStart + 10; i < canvas.height; i += 10) {
-    wallElements.push({
-      xStart: 240,
-      yStart: i,
-      xEnd: 250,
-      yEnd: i + 10
-    })   
-  }
- 
-  wallsToRender = wallsToRender.concat(wallElements);
-  
   // for each split
   //   check if grid can be split again
   //   repeat process
