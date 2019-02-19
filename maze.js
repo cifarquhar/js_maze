@@ -91,15 +91,27 @@ function getRandomInt(min, max) {
   return (Math.floor(Math.random() * (max - min + 1)) + min) * 10;
 }
 
-function generateMaze(minX, maxX, minY, maxY, direction){
+function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side){
   // place random gap
 let gapStart;
 
   if (direction === "H"){
 
-    gapStart = getRandomInt(minX /10, (maxX - 10) / 10);
+    // gapStart = getRandomInt(minX /10, (maxX - 10) / 10);
 
-    const yCoord = getRandomInt((minY + 10) / 10, (maxY - 10) /10)
+    const yCoord = getRandomInt((minY + 10) / 10, (maxY - 20) /10)
+
+    if (yCoord !== prevGap) {
+      gapStart = getRandomInt(minX / 10, (maxX - 10) / 10);
+    }
+    else if (side === "left") {
+      console.log("forcing shift left");
+      gapStart = maxX - 10;
+    }
+    else if (side === "right") {
+      console.log("forcing shift right");
+      gapStart = minX
+    }
 
     wallsToRender.push({
       xStart: minX,
@@ -116,16 +128,26 @@ let gapStart;
     })   
 
     if (yCoord - minY > 10 && maxX - minX > 10){
-      generateMaze(minX, maxX, minY, yCoord, "V")
+      generateMaze(minX, maxX, minY, yCoord, "V", gapStart, "top")
     }
     if (maxY - yCoord > 10 && maxX - minX > 10){
-      generateMaze(minX, maxX, yCoord + 10, maxY, "V")
+      generateMaze(minX, maxX, yCoord + 10, maxY, "V", gapStart, "bottom")
     }
   }
   else if (direction === "V"){
-    gapStart = getRandomInt(minY / 10, (maxY - 10) / 10);
-
-    const xCoord = getRandomInt((minX + 10) / 10, (maxX - 10) / 10)
+    const xCoord = getRandomInt((minX + 10) / 10, (maxX - 20) / 10)
+    
+    if (xCoord !== prevGap){
+      gapStart = getRandomInt(minY / 10, (maxY - 10) / 10);
+    }
+    else if (side === "top"){
+      console.log("forcing shift up");
+      gapStart = maxY - 10;
+    }
+    else if (side === "bottom"){
+      console.log("forcing shift down");
+      gapStart = minY
+    }
 
     wallsToRender.push({
       xStart: xCoord,
@@ -142,10 +164,10 @@ let gapStart;
     })   
 
     if (xCoord - minX > 10 && maxY - minY > 10) {
-      generateMaze(minX, xCoord, minY, maxY, "H")
+      generateMaze(minX, xCoord, minY, maxY, "H", gapStart, "left")
     }
     if (maxX - xCoord > 10 && maxY - minY > 10) {
-      generateMaze(xCoord + 10, maxX, minY, maxY, "H")
+      generateMaze(xCoord + 10, maxX, minY, maxY, "H", gapStart, "right")
     }
 
   }
@@ -272,5 +294,5 @@ function draw(){
 // RUN GAME
 
 document.addEventListener("keydown", updatePlayerPosition)
-generateMaze(10, 470, 10, 470, "H");
+generateMaze(10, 470, 10, 470, "H", null);
 draw();
