@@ -42,49 +42,6 @@ const outerWalls = [
   }
 ]
 
-// const walls = [
-//   [
-//     {
-//       xStart: 50,
-//       yStart: 50,
-//       xEnd: 100,
-//       yEnd: 60
-//     },
-//     {
-//       xStart: 100,
-//       yStart: 100,
-//       xEnd: 110,
-//       yEnd: 200
-//     },
-//     {
-//       xStart: 100,
-//       yStart: 200,
-//       xEnd: 200,
-//       yEnd: 210
-//     }
-//   ],
-//   [
-//     {
-//       xStart: 70,
-//       yStart: 200,
-//       xEnd: 80,
-//       yEnd: 250
-//     },
-//     {
-//       xStart: 250,
-//       yStart: 40,
-//       xEnd: 350,
-//       yEnd: 50
-//     },
-//     {
-//       xStart: 300,
-//       yStart: 300,
-//       xEnd: 350,
-//       yEnd: 310
-//     }
-//   ]
-// ];
-
 let wallsToRender = outerWalls; 
 
 function getRandomInt(min, max) {
@@ -92,13 +49,9 @@ function getRandomInt(min, max) {
 }
 
 function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side){
-  // place random gap
-let gapStart;
+  let gapStart;
 
   if (direction === "H"){
-
-    // gapStart = getRandomInt(minX /10, (maxX - 10) / 10);
-
     const yCoord = getRandomInt((minY + 10) / 10, (maxY - 20) /10)
 
     if (yCoord !== prevGap) {
@@ -169,13 +122,7 @@ let gapStart;
     if (maxX - xCoord > 20 && maxY - minY > 20) {
       generateMaze(xCoord + 10, maxX, minY + 10, maxY - 10, "H", gapStart, "right")
     }
-
   }
-
-
-  // for each split
-  //   check if grid can be split again
-  //   repeat process
 }
 
 
