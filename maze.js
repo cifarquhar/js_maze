@@ -127,11 +127,11 @@ let gapStart;
       yEnd: yCoord + 10
     })   
 
-    if (yCoord - minY > 10 && maxX - minX > 10){
-      generateMaze(minX, maxX, minY, yCoord, "V", gapStart, "top")
+    if (yCoord - minY > 20 && maxX - minX > 20) {
+      generateMaze(minX + 10, maxX - 10, minY, yCoord, "V", gapStart, "top")
     }
-    if (maxY - yCoord > 10 && maxX - minX > 10){
-      generateMaze(minX, maxX, yCoord + 10, maxY, "V", gapStart, "bottom")
+    if (maxY - yCoord > 20 && maxX - minX > 20) {
+      generateMaze(minX + 10, maxX - 10, yCoord + 10, maxY, "V", gapStart, "bottom")
     }
   }
   else if (direction === "V"){
@@ -163,11 +163,11 @@ let gapStart;
       yEnd: maxY
     })   
 
-    if (xCoord - minX > 10 && maxY - minY > 10) {
-      generateMaze(minX, xCoord, minY, maxY, "H", gapStart, "left")
+    if (xCoord - minX > 20 && maxY - minY > 20) {
+      generateMaze(minX, xCoord, minY + 10, maxY - 10, "H", gapStart, "left")
     }
-    if (maxX - xCoord > 10 && maxY - minY > 10) {
-      generateMaze(xCoord + 10, maxX, minY, maxY, "H", gapStart, "right")
+    if (maxX - xCoord > 20 && maxY - minY > 20) {
+      generateMaze(xCoord + 10, maxX, minY + 10, maxY - 10, "H", gapStart, "right")
     }
 
   }
