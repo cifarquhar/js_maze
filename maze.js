@@ -65,11 +65,9 @@ function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side, existing
       gapStart = getRandomInt(minX / 10, (maxX - 10) / 10);
     }
     else if (side === "left") {
-      // console.log("forcing shift left");
       gapStart = maxX - 10;
     }
     else if (side === "right") {
-      // console.log("forcing shift right");
       gapStart = minX
     }
 
@@ -101,11 +99,9 @@ function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side, existing
       gapStart = getRandomInt(minY / 10, (maxY - 10) / 10);
     }
     else if (side === "top"){
-      // console.log("forcing shift up");
       gapStart = maxY - 10;
     }
     else if (side === "bottom"){
-      // console.log("forcing shift down");
       gapStart = minY
     }
 
@@ -130,8 +126,7 @@ function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side, existing
       generateMaze(xCoord + 10, maxX, minY + 10, maxY - 10, "H", gapStart, "right", wallsToRender)
     }
   }
-  // console.log(wallsToRender);
-  
+
   return wallsToRender;
 }
 
@@ -201,11 +196,8 @@ function resetPlayer(){
   playerY = 15;
   currentLevel += 1;
   timeRemaining = 10000;
-  // console.log("old maze:", JSON.parse(JSON.stringify(levelWalls)));
   levelWalls = getOuterWalls();
-  // console.log("reset:", JSON.parse(JSON.stringify(levelWalls)));
   levelWalls = generateMaze(10, 470, 10, 470, "H", null, null, getOuterWalls());
-  // console.log("new maze:", JSON.parse(JSON.stringify(levelWalls)));
 }
 
 function updateTimer(){
@@ -240,7 +232,6 @@ function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPlayer();
   if (!completed){
-    // drawWalls(outerWalls);
     drawWalls(levelWalls);
     checkWin();
     updateTimer();
@@ -257,5 +248,4 @@ function draw(){
 // RUN GAME
 
 document.addEventListener("keydown", updatePlayerPosition)
-// generateMaze(10, 470, 10, 470, "H", null);
 draw();
