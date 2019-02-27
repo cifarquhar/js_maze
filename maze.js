@@ -7,6 +7,7 @@ const timerDisplay = document.querySelector("#timer");
 // Game state
 let completed = false;
 let currentLevel = 1;
+const maxLevel = 5;
 let timeRemaining = 10000;
 let currentScore = 0;
 
@@ -182,7 +183,7 @@ function checkCollisionDetection(xCoord, yCoord){
 
 function checkWin(){
   if (playerX === canvas.width - 15 && playerY === canvas.height - 5){
-    if (currentLevel === levelWalls.length){
+    if (currentLevel === maxLevel){
       currentScore += timeRemaining;
       alert(`Congratulations, you escaped with a score of ${currentScore}!`);
       completed = true;
