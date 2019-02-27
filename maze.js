@@ -181,13 +181,13 @@ function checkWin(){
   if (playerX === canvas.width - 15 && playerY === canvas.height - 5){
     if (currentLevel === maxLevel){
       currentScore += timeRemaining;
-      scoreDisplay.innerText = currentScore;
+      scoreDisplay.innerText = `Score: ${currentScore}`;
       alert(`Congratulations, you escaped with a score of ${currentScore}!`);
       completed = true;
     }
     else{
       currentScore += timeRemaining;
-      scoreDisplay.innerText = currentScore;
+      scoreDisplay.innerText = `Score: ${currentScore}`;
       alert("You made it, now on to the next level!");
     }
     resetPlayer();
