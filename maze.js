@@ -16,44 +16,46 @@ let playerY = 5;
 
 // Walls
 
-const levelWalls = [];
+function getOuterWalls(){
+  return [
+    {
+      xStart: 0,
+      yStart: 0,
+      xEnd: 10,
+      yEnd: canvas.height
+    },
+    {
+      xStart: 0,
+      yStart: canvas.height - 10,
+      xEnd: canvas.width - 20,
+      yEnd: canvas.height
+    },
+    {
+      xStart: 20,
+      yStart: 0,
+      xEnd: canvas.width,
+      yEnd: 10
+    },
+    {
+      xStart: canvas.width - 10,
+      yStart: 0,
+      xEnd: canvas.width,
+      yEnd: canvas.height
+    }
+  ]
+}
 
-const outerWalls = [
-  {
-    xStart: 0,
-    yStart: 0,
-    xEnd: 10,
-    yEnd: canvas.height
-  },
-  {
-    xStart: 0,
-    yStart: canvas.height - 10,
-    xEnd: canvas.width - 20,
-    yEnd: canvas.height
-  },
-  {
-    xStart: 20,
-    yStart: 0,
-    xEnd: canvas.width,
-    yEnd: 10
-  },
-  {
-    xStart: canvas.width - 10,
-    yStart: 0,
-    xEnd: canvas.width,
-    yEnd: canvas.height
-  }
-]
+let levelWalls = generateMaze(10, 470, 10, 470, "H", null, null, getOuterWalls());
 
 function getRandomInt(min, max) {
   return (Math.floor(Math.random() * (max - min + 1)) + min) * 10;
 }
 
-function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side){
-
-  let wallsToRender = outerWalls; 
+function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side, existingWalls){
 
   let gapStart;
+
+  wallsToRender = existingWalls;
 
   if (direction === "H"){
     const yCoord = getRandomInt((minY + 10) / 10, (maxY - 20) /10)
@@ -62,11 +64,11 @@ function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side){
       gapStart = getRandomInt(minX / 10, (maxX - 10) / 10);
     }
     else if (side === "left") {
-      console.log("forcing shift left");
+      // console.log("forcing shift left");
       gapStart = maxX - 10;
     }
     else if (side === "right") {
-      console.log("forcing shift right");
+      // console.log("forcing shift right");
       gapStart = minX
     }
 
@@ -85,10 +87,10 @@ function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side){
     })   
 
     if (yCoord - minY > 20 && maxX - minX > 20) {
-      generateMaze(minX + 10, maxX - 10, minY, yCoord, "V", gapStart, "top")
+      generateMaze(minX + 10, maxX - 10, minY, yCoord, "V", gapStart, "top", wallsToRender)
     }
     if (maxY - yCoord > 20 && maxX - minX > 20) {
-      generateMaze(minX + 10, maxX - 10, yCoord + 10, maxY, "V", gapStart, "bottom")
+      generateMaze(minX + 10, maxX - 10, yCoord + 10, maxY, "V", gapStart, "bottom", wallsToRender)
     }
   }
   else if (direction === "V"){
@@ -98,11 +100,11 @@ function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side){
       gapStart = getRandomInt(minY / 10, (maxY - 10) / 10);
     }
     else if (side === "top"){
-      console.log("forcing shift up");
+      // console.log("forcing shift up");
       gapStart = maxY - 10;
     }
     else if (side === "bottom"){
-      console.log("forcing shift down");
+      // console.log("forcing shift down");
       gapStart = minY
     }
 
@@ -121,12 +123,14 @@ function generateMaze(minX, maxX, minY, maxY, direction, prevGap, side){
     })   
 
     if (xCoord - minX > 20 && maxY - minY > 20) {
-      generateMaze(minX, xCoord, minY + 10, maxY - 10, "H", gapStart, "left")
+      generateMaze(minX, xCoord, minY + 10, maxY - 10, "H", gapStart, "left", wallsToRender)
     }
     if (maxX - xCoord > 20 && maxY - minY > 20) {
-      generateMaze(xCoord + 10, maxX, minY + 10, maxY - 10, "H", gapStart, "right")
+      generateMaze(xCoord + 10, maxX, minY + 10, maxY - 10, "H", gapStart, "right", wallsToRender)
     }
   }
+  // console.log(wallsToRender);
+  
   return wallsToRender;
 }
 
@@ -168,7 +172,7 @@ function updatePlayerPosition(event){
 }
 
 function checkCollisionDetection(xCoord, yCoord){
-  return levelWalls[0].every((wall) => {
+  return levelWalls.every((wall) => {
     return (xCoord < wall.xStart || xCoord > wall.xEnd) || (yCoord < wall.yStart || yCoord > wall.yEnd)
   })
 }
@@ -196,6 +200,11 @@ function resetPlayer(){
   playerY = 15;
   currentLevel += 1;
   timeRemaining = 10000;
+  // console.log("old maze:", JSON.parse(JSON.stringify(levelWalls)));
+  levelWalls = getOuterWalls();
+  // console.log("reset:", JSON.parse(JSON.stringify(levelWalls)));
+  levelWalls = generateMaze(10, 470, 10, 470, "H", null, null, getOuterWalls());
+  // console.log("new maze:", JSON.parse(JSON.stringify(levelWalls)));
 }
 
 function updateTimer(){
@@ -216,8 +225,8 @@ function drawPlayer(){
 }
 
 // Walls
-function drawWalls(){
-  levelWalls[0].forEach((wall) => {
+function drawWalls(walls){
+  walls.forEach((wall) => {
     ctx.beginPath();
     ctx.fillStyle = "#2D0E00";
     ctx.fillRect(wall.xStart, wall.yStart, wall.xEnd - wall.xStart, wall.yEnd - wall.yStart);
@@ -230,7 +239,8 @@ function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawPlayer();
   if (!completed){
-    drawWalls();
+    // drawWalls(outerWalls);
+    drawWalls(levelWalls);
     checkWin();
     updateTimer();
     if (timeRemaining <= 0){
@@ -246,7 +256,5 @@ function draw(){
 // RUN GAME
 
 document.addEventListener("keydown", updatePlayerPosition)
-levelWalls.push(generateMaze(10, 470, 10, 470, "H", null));
-console.log(levelWalls);
-
+// generateMaze(10, 470, 10, 470, "H", null);
 draw();
