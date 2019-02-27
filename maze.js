@@ -198,7 +198,7 @@ function resetPlayer(){
   playerX = 15;
   playerY = 15;
   currentLevel += 1;
-  timeRemaining = 10000;
+  timeRemaining = 10000 - ((currentLevel - 1) * 1000);
   levelWalls = generateMaze(10, 470, 10, 470, "H", null, null, getOuterWalls());
 }
 
