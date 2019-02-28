@@ -183,7 +183,6 @@ function checkWin(){
     if (currentLevel === maxLevel){
       currentScore += timeRemaining;
       scoreDisplay.innerText = `Score: ${currentScore}`;
-      // alert(`Congratulations, you escaped with a score of ${currentScore}!`);
       completed = true;
     }
     else{
