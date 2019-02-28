@@ -2,6 +2,7 @@ const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
 const timerDisplay = document.querySelector("#timer");
 const scoreDisplay = document.querySelector("#score");
+const levelDisplay = document.querySelector("#level");
 
 // INITIALISATION
 
@@ -189,6 +190,8 @@ function checkWin(){
       currentScore += timeRemaining;
       scoreDisplay.innerText = `Score: ${currentScore}`;
       alert("You made it, now on to the next level!");
+      currentLevel += 1;
+      levelDisplay.innerText = `Level: ${currentLevel}`;
     }
     resetPlayer();
   };
@@ -197,7 +200,6 @@ function checkWin(){
 function resetPlayer(){
   playerX = 15;
   playerY = 15;
-  currentLevel += 1;
   timeRemaining = 10000 - ((currentLevel - 1) * 1000);
   levelWalls = generateMaze(10, 470, 10, 470, "H", null, null, getOuterWalls());
 }
