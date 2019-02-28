@@ -182,7 +182,7 @@ function checkWin(){
     if (currentLevel === maxLevel){
       currentScore += timeRemaining;
       scoreDisplay.innerText = `Score: ${currentScore}`;
-      alert(`Congratulations, you escaped with a score of ${currentScore}!`);
+      // alert(`Congratulations, you escaped with a score of ${currentScore}!`);
       completed = true;
     }
     else{
@@ -232,8 +232,8 @@ function drawWalls(walls){
 // Rendering turn
 function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawPlayer();
   if (!completed){
+    drawPlayer();
     drawWalls(levelWalls);
     checkWin();
     updateTimer();
@@ -242,6 +242,9 @@ function draw(){
       completed = true;
     }
     requestAnimationFrame(draw);
+  }
+  else {
+    ctx.fillText(`Congratulations! You escaped with a score of ${currentScore}!`, 20, 50);
   }
 }
 
